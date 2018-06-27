@@ -1,6 +1,6 @@
-#include<iostream.h>
-#include<stdlib.h>
-#include<stdio.h>
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
 
 using namespace std;
 
@@ -15,14 +15,14 @@ struct BTreeNode{
 /*
 初始化二叉树
 */
-void InitBTree(BTreeNode*& BT){
+void InitBTree(BTreeNode* &BT){
 	BT = NULL;
 }
 
 /*
 根据广义表表示的二叉树建立对应的存储结构
 */
-void CreateBTree(BTreeNode*& BT, char* a){
+void CreateBTree(BTreeNode* &BT, char* a){
 	const int MaxSize = 10;
 	BTreeNode *s[MaxSize];
 	int top = -1;
@@ -93,7 +93,7 @@ int DepthBTree(BTreeNode* BT){
 /*
 从二叉树中查找值为x的结点，若存在该结点则由x带回它的完整值
 */
-bool FindBTree(BTreeNode* BT,ElemType &x){   
+bool FindBTree(BTreeNode* BT,ElemType &x){
 	if(BT == NULL)
 		return false;
 	else{
@@ -171,9 +171,9 @@ void LevelOrder(BTreeNode*BT){
 	const int MaxSize=30;        //定义用于存储队列的数组长度
 	BTreeNode*q[MaxSize];        //定义队列所使用的数组空间
 	int front=0, rear=0;         //定义队首指针和队尾指针，初始为空队
-	BTreeNode*p;
+	BTreeNode* p;
 	if(BT!=NULL){                //将树根指针进队
-		rear=(rear+1)%MaxSize;
+		rear = (rear + 1) % MaxSize;
 		q[rear]=BT;
 	}
 	while(front!=rear){          //当队列非空时执行循环
@@ -197,7 +197,7 @@ void main(){
 	InitBTree(bt);
 	char b[999];
 	printf("输入二叉树广义表字符串:\n");
-	std::cin.getline(b,sizeof(b));
+	std::cin.getline(b, sizeof(b));
 	CreateBTree(bt,b);
 	PrintBTree(bt);
 	std::cout << std::endl;
