@@ -36,7 +36,7 @@ void CreateBTree(BTreeNode* &BT, char* a){
 			break;
 		case '(':
 			if(top == MaxSize-1){
-				printf("栈的空间太小，请增加MaxSize的值\n");
+				std::cout << "栈的空间太小，请增加MaxSize的值" << std::endl;
 				exit(1);
 			}
 			top++;
@@ -45,7 +45,7 @@ void CreateBTree(BTreeNode* &BT, char* a){
 			break;
 		case ')':
 			if(top == -1){
-				printf("二叉树广义表字符串错！\n");
+				std::cout << "二叉树广义表字符串错！" << std::endl;
 				exit(1);
 			}
 			top--;
@@ -167,26 +167,26 @@ void PostOrder(BTreeNode*BT){
 /*
 按层遍历由BT指针所指向的二叉树
 */
-void LevelOrder(BTreeNode*BT){
-	const int MaxSize=30;        //定义用于存储队列的数组长度
-	BTreeNode*q[MaxSize];        //定义队列所使用的数组空间
-	int front=0, rear=0;         //定义队首指针和队尾指针，初始为空队
+void LevelOrder(BTreeNode* BT){
+	const int MaxSize = 30;        //定义用于存储队列的数组长度
+	BTreeNode* q[MaxSize];        //定义队列所使用的数组空间
+	int front = 0, rear = 0;         //定义队首指针和队尾指针，初始为空队
 	BTreeNode* p;
-	if(BT!=NULL){                //将树根指针进队
+	if(BT != NULL){                //将树根指针进队
 		rear = (rear + 1) % MaxSize;
-		q[rear]=BT;
+		q[rear] = BT;
 	}
-	while(front!=rear){          //当队列非空时执行循环
-		front=(front+1)%MaxSize;  //使队首指针指向队首元素
-		p=q[front];                //删除队首元素
-		cout<<p->data<<' ';       //输出队首元素所指结点的值
-		if(p->left!=NULL){
-			rear=(rear+1)%MaxSize;
-			q[rear]=p->left;
+	while(front != rear){          //当队列非空时执行循环
+		front = (front + 1) % MaxSize;  //使队首指针指向队首元素
+		p = q[front];                //删除队首元素
+		std::cout << p->data << ' ';       //输出队首元素所指结点的值
+		if(p->left != NULL){
+			rear = (rear + 1) % MaxSize;
+			q[rear] = p->left;
 		}
-		if(p->right!=NULL){
-			rear=(rear+1)%MaxSize;
-			q[rear]=p->right;
+		if(p->right != NULL){
+			rear = (rear + 1) % MaxSize;
+			q[rear] = p->right;
 		}
 	}   //while end//
 }
@@ -196,12 +196,12 @@ void main(){
 	BTreeNode* bt;
 	InitBTree(bt);
 	char b[999];
-	printf("输入二叉树广义表字符串:\n");
+	std::cout << "输入二叉树广义表字符串:" << std::endl;
 	std::cin.getline(b, sizeof(b));
 	CreateBTree(bt,b);
 	PrintBTree(bt);
 	std::cout << std::endl;
-	printf("递归算法遍历：\n");
+	std::cout << "递归算法遍历：" << std::endl;
 	std::cout << "前序遍历为：";
 	PreOrder(bt);
 	std::cout << std::endl;
@@ -211,7 +211,7 @@ void main(){
 	std::cout << "后序遍历为：";
 	PostOrder(bt);
 	std::cout << std::endl;
-	printf("非递归算法遍历：\n");
+	std::cout << "非递归算法遍历：" << std::endl;
 	std::cout << "按层遍历为：";
 	LevelOrder(bt);
 	std::cout << std::endl;
