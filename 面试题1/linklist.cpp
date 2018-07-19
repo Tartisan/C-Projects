@@ -165,30 +165,24 @@ int Calculate(node *pHead, int k)
 void cluster(int data[], int len, int radius)
 {
     int i, j, k;
-    while(len)
+    for (i = 0; i < len; i++)
     {
-        for (i = 0; i < len; i++)
+        std::cout << data[i] << " ";
+        for(j = 1; j < len-i; j++)
         {
-            std::cout << data[i];
-            for(j = 1; j < len-i; j++)
+            if(abs(data[i+j] - data[i]) < radius)
             {
-                if(abs(data[i+j] - data[i]) < radius)
+                std::cout << data[i+j] << " ";
+                for(k = i+j; k < len; k++) // 后面的元素往前移
                 {
-                    std::cout << data[i+j];
-                    for(k = i+j; k < len; k++) // 后面的元素往前移
-                    {
-                        data[k] = data[k+1];
-                    }
-                    len--;
-                    j--;
+                    data[k] = data[k+1];
                 }
-
+                len--;
+                j--;
             }
-                
-
         }
+        std::cout << std::endl;
     }
-    
 }
 
 
