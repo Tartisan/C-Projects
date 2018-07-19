@@ -26,7 +26,7 @@ struct node
     int v;
     node* n;
 };
-typedef struct node *linklist
+typedef struct node *linklist;
 
 /* 链表长度由参数n传入,生成的链表要作为参数返回，而不是当初函数返回值返回，
    链表节点值为1,2,3...n
@@ -41,10 +41,11 @@ void create_linklist(linklist *L, int n)
     (*L)->n = NULL;
     for(i = n; i > 0; i--)
     {
-        p = (linklist *)malloc(sizeof(linklist));
+        p = (linklist)malloc(sizeof(node));
         p->v = n;
         p->n = (*L)->n;
         (*L)->n = p;
+        n--;
     }
 }
 
@@ -57,17 +58,17 @@ void reverse_linklist(linklist *L)
     if((*L)->n == NULL)
         std::cout << "链表节点数不足，无法逆转！" << std::endl;
     
-    current = (*L)->n;
-    pnext = current->n;
-    current->n = NULL;
+    pcurrent = (*L)->n;
+    pnext = pcurrent->n;
+    pcurrent->n = NULL;
     while(pnext)
     {
         prev = pnext->n;
-        pnext->n = current;
-        current = pnext;
+        pnext->n = pcurrent;
+        pcurrent = pnext;
         pnext = prev;
     }
-    (*L)->n = current;
+    (*L)->n = pcurrent;
 }
 
 //在指定链表位置Index插入指定Value
@@ -77,16 +78,16 @@ void insert_node(linklist *L, int Index, int Value)
     linklist p,s;
     p = *L;
 
-    while(p && j < index) // 寻找index处的节点
+    while(p && j < Index) // 寻找index处的节点
     {
         p = p->n;
         ++j;
     }
-    if(!p || j > index)
+    if(!p || j > Index)
         std::cout << "该元素不存在" << std::endl;
 
     s = (linklist)malloc(sizeof(node));
-    s->v = value;
+    s->v = Value;
     s->n = p->n;
     p->n = s;
 }
@@ -98,12 +99,12 @@ void delete_node(linklist *L, int Index)
     linklist p, q;
     p = *L;
     
-    while(p->n && j < index)
+    while(p->n && j < Index)
     {
         p = p->n;
         ++j;
     }
-    if(!(p->n) || j > index)
+    if(!(p->n) || j > Index)
         std::cout << "该元素不存在" << std::endl;
 
     q = p->n;
