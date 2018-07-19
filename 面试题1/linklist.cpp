@@ -159,7 +159,12 @@ int Calculate(node *pHead, int k)
 			if (n % 3)  /*3进制下的第j-1位数，如果不是0，则要完成先前的操作*/
 			{
 				if (op == '+') 
-					s += m; else s -= m; m = j;
+					s += m; 
+				else 
+				{
+					s -= m; 
+					m = j;
+				}
 			}
 			switch (n % 3)  /*根据这一位的情况进行处理*/
 			{
@@ -172,7 +177,10 @@ int Calculate(node *pHead, int k)
 			str[ptr++] = '0' + j;
 			n /= 3;
 		}
-		if (op == '+') s += m; else s -= m;
+		if (op == '+') 
+			s += m; 
+		else 
+			s -= m;
 		str[ptr] = '\0';
 		if (s == k) 
 			std::cout << str << " = " << s << std::endl;
