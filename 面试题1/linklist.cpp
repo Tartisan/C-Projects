@@ -183,6 +183,7 @@ void cluster(int data[], int len, int radius)
         }
         std::cout << std::endl;
     }
+    std::cout << "分组数目： " << len << std::endl;
 }
 
 
