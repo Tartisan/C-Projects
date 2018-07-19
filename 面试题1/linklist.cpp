@@ -134,24 +134,52 @@ void delete_linklist(linklist *L)
 */
 int Calculate(node *pHead, int k)
 {
-    int i = 0;
-    int A[20] = 0;
-    node *p = pHead->n;
-    while(p)
-    {
-        A[i] = (*p)->v;
-        i++;
-        p = p->n;
-    }
-
-    if(i == 1) // 数组长度
-    {
-
-    }
-
-
-
+	int length = 0;
+	int A[10] = { 0 };
+	node *p = pHead->n;
+	while (p) // 计算链表长度
+	{
+		// A[length] = p->v;
+		length++;
+		p = p->n;
+	}
+	
+	char op, str[80];
+	int i, j, s, n, m, ptr;
+	for (i = 0; i <= (int)pow(3, length-1); i++)  /*i是每一种枚举的情况，把i分解为八位3进制数，每一位表示每一个位置的符号*/
+	{
+		s = 0;  /*该方式下的和*/
+		m = 1;  /*作操作数*/
+		n = i;  /*获取i在3进制下的每一位会破坏i，所以借用变量n来获取*/
+		op = '+';  /*第一次操作方式为+*/
+		ptr = 0;  /*指针用来记录运算过程*/
+		str[ptr++] = '1';  /*首先记录一个1*/
+		for (j = 2; j <= length; j++)  /*八次循环，每次的下一个操作数是j*/
+		{
+			if (n % 3)  /*3进制下的第j-1位数，如果不是0，则要完成先前的操作*/
+			{
+				if (op == '+') 
+					s += m; else s -= m; m = j;
+			}
+			switch (n % 3)  /*根据这一位的情况进行处理*/
+			{
+			case 0:m = m * 10 + j; break;
+			case 1:op = '+'; break;
+			case 2:op = '-'; break;
+			}
+			if (n % 3) 
+				str[ptr++] = op;  /*记录运算模式*/
+			str[ptr++] = '0' + j;
+			n /= 3;
+		}
+		if (op == '+') s += m; else s -= m;
+		str[ptr] = '\0';
+		if (s == k) 
+			std::cout << str << " = " << s << std::endl;
+	}
+	return 0;
 }
+    
 
 /*  Project 3
 
@@ -191,10 +219,15 @@ void cluster(int data[], int len, int radius)
 int main()
 {
     cout << "Hello World!" << endl;
+    // Project 2
+    linklist L;
+    creat_linklist(&L, 9);
+    Calculate(L, 100);
 
     // Project 3
     int data[] = { 1, 20, 89, 22, 72, 2,39, 3,56,86, 5, 93,13, 15, 18, 73, 79, 81,25, 38, 43, 83,48, 52,  59,92,84,95,87 };
     cluster(data, sizeof(data)/sizeof(int), 5);
+    getchar();
     return 0;
 }
 
